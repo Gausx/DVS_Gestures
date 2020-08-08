@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="69a2f927-3e07-4182-b3da-27b03c591de9" name="Default Changelist" comment="" />
+    <list default="true" id="69a2f927-3e07-4182-b3da-27b03c591de9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DVS_Gesture.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DVS_Gesture_dataloders.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_run.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/events_timeslices.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/transforms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/code.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -19,7 +36,72 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\共享云端硬盘\Colab\github\DVS_Gestures\code" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.DVS_Gesture_dataloders">
+    <configuration name="DVS_Gesture" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DVS_Gesture.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="DVS_Gesture_dataloders" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DVS_Gesture_dataloders.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.DVS_Gesture_dataloders" />
+        <item itemvalue="Python.DVS_Gesture" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -32,10 +114,79 @@
       <option name="presentableId" value="Default" />
       <updated>1596798789062</updated>
       <workItem from="1596798810902" duration="125000" />
+      <workItem from="1596799138631" duration="8946000" />
+      <workItem from="1596847626200" duration="436000" />
+      <workItem from="1596848463315" duration="24060000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-554" y="103" width="490" height="699" key="#xdebugger.evaluate" timestamp="1596872629741">
+      <screen x="-1600" y="0" width="1600" height="860" />
+    </state>
+    <state x="-554" y="103" width="490" height="699" key="#xdebugger.evaluate/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596872629741" />
+    <state width="1648" height="466" key="DebuggerActiveHint" timestamp="1596870170136">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1648" height="466" key="DebuggerActiveHint/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596870170136" />
+    <state width="1877" height="255" key="GridCell.Tab.0.bottom" timestamp="1596874667906">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667906" />
+    <state width="1877" height="255" key="GridCell.Tab.0.center" timestamp="1596874667906">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.0.center/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667906" />
+    <state width="1877" height="255" key="GridCell.Tab.0.left" timestamp="1596874667906">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.0.left/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667906" />
+    <state width="1877" height="255" key="GridCell.Tab.0.right" timestamp="1596874667906">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.0.right/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667906" />
+    <state width="1877" height="255" key="GridCell.Tab.1.bottom" timestamp="1596874667826">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667826" />
+    <state width="1877" height="255" key="GridCell.Tab.1.center" timestamp="1596874667826">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.1.center/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667826" />
+    <state width="1877" height="255" key="GridCell.Tab.1.left" timestamp="1596874667826">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.1.left/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667826" />
+    <state width="1877" height="255" key="GridCell.Tab.1.right" timestamp="1596874667826">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="255" key="GridCell.Tab.1.right/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596874667826" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1596806776282">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1596806776282" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="np.array(temp)" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/code$DVS_Gesture_dataloders.coverage" NAME="DVS_Gesture_dataloders Coverage Results" MODIFIED="1596874667790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/code$DVS_Gesture.coverage" NAME="DVS_Gesture Coverage Results" MODIFIED="1596863646548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

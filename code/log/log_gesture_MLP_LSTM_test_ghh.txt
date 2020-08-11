@@ -1,0 +1,38 @@
+2
+cuda
+range(0, 1)
+LIF-LSTM(MLP)-DVS-Gesture:dt= 25 ms
+Net(
+  (liflstm): LIFLSTM(
+    (network): Sequential(
+      (LIF-LSTM): LIFLSTMCell(
+        (lstmcell): LSTMCell(2048, 512)
+        (DPLayer): Dropout(p=0.5, inplace=False)
+      )
+    )
+  )
+  (fc): Linear(in_features=512, out_features=11, bias=True)
+)
+weight_decay: 0
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'",)
+{'Total': 5252619, 'Trainable': 5252619}
+train: Epoch [1/100], Step [1/33], Loss: 0.09549

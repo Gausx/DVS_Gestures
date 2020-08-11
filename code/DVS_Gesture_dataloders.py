@@ -1,10 +1,10 @@
 from torch import tensor
-
 from transforms import *
 import h5py
 import os
 from torch.utils.data import Dataset
 from events_timeslices import *
+import time
 
 
 mapping = {0: 'Hand Clapping',
@@ -29,7 +29,9 @@ class DVSGestureDataset(Dataset):
                  chunk_size=500,
                  clip=10,
                  is_train_Enhanced=False,
-                 dt=1000
+                 dt=1000,
+                 size=[2, 32, 32],
+                 ds=4
                  ):
         super(DVSGestureDataset, self).__init__()
 
@@ -42,6 +44,8 @@ class DVSGestureDataset(Dataset):
         self.dt = dt
         self.transform = transform
         self.target_transform = target_transform
+        self.size = size
+        self.ds = ds
 
         if train:
             root_train = os.path.join(self.root, 'train')
@@ -69,6 +73,14 @@ class DVSGestureDataset(Dataset):
                 data, target = sample_train(
                     f, T=self.chunk_size, is_train_Enhanced=self.is_train_Enhanced, dt=self.dt)
 
+
+            data = my_chunk_evs_pol_dvs(data=data,
+                                        dt=self.dt,
+                                        T=self.chunk_size,
+                                        size=self.size,
+                                        ds=self.ds)
+            data = np.int8(data > 0)
+
             if self.transform is not None:
                 data = self.transform(data)
 
@@ -91,19 +103,19 @@ class DVSGestureDataset(Dataset):
             for i in range(self.clip):
 
                 if self.transform is not None:
-                    data_temp.append(self.transform(data[i]))
+                    temp = my_chunk_evs_pol_dvs(data=data[i],
+                                                dt=self.dt,
+                                                T=self.chunk_size,
+                                                size=self.size,
+                                                ds=self.ds)
+                    temp = np.int8(temp > 0)
+                    data_temp.append(self.transform(temp))
 
                 if self.target_transform is not None:
                     target_temp.append(self.target_transform(target))
 
-            for i in range(self.clip):
-                data_temp[i] = data_temp[i].numpy()
-                target_temp[i] = target_temp[i].numpy()
-
-            data = np.array(data_temp)
-            target = np.array(target_temp)
-            data = torch.from_numpy(data)
-            target = torch.from_numpy(target)
+            data = torch.stack(data_temp)
+            target = torch.stack(target_temp)
 
             return data, target
 
@@ -111,7 +123,8 @@ class DVSGestureDataset(Dataset):
 def sample_train(hdf5_file,
                  T=60,
                  dt=1000,
-                 is_train_Enhanced=False):
+                 is_train_Enhanced=False
+                 ):
     label = hdf5_file['labels'][()]
 
     tbegin = hdf5_file['times'][0]
@@ -121,7 +134,7 @@ def sample_train(hdf5_file,
 
     tmad = get_tmad_slice(hdf5_file['times'][()],
                           hdf5_file['addrs'][()],
-                          tbegin,
+                          start_time,
                           T * dt)
     tmad[:, 0] -= tmad[0, 0]
     return tmad[:, [0, 3, 1, 2]], label
@@ -170,8 +183,7 @@ def sample_test(hdf5_file,
     for start in start_point:
         idx_beg = find_first(tmad[:, 0], start)
         idx_end = find_first(tmad[:, 0][idx_beg:], start + T * dt) + idx_beg
-
-        temp.append(np.column_stack([tmad[idx_beg:idx_end]])[:, [0, 3, 1, 2]])
+        temp.append(tmad[idx_beg:idx_end][:, [0, 3, 1, 2]])
 
     return temp, label
 
@@ -197,23 +209,18 @@ def create_datasets(root=None,
     size = [2, 128 // ds[0], 128 // ds[1]]
 
     if n_events_attention is None:
-        def default_transform(chunk_size): return Compose([
-            Downsample(factor=[dt, 1, ds[0], ds[1]]),
-            ToCountFrame(T=chunk_size, size=size),
+        def default_transform(): return Compose([
             ToTensor()
         ])
     else:
-        def default_transform(chunk_size): return Compose([
-            Downsample(factor=[dt, 1, 1, 1]),
-            Attention(n_events_attention, size=size),
-            ToCountFrame(T=chunk_size, size=size),
+        def default_transform(): return Compose([
             ToTensor()
         ])
 
     if transform_train is None:
-        transform_train = default_transform(chunk_size_train)
+        transform_train = default_transform()
     if transform_test is None:
-        transform_test = default_transform(chunk_size_test)
+        transform_test = default_transform()
 
     if target_transform_train is None:
         target_transform_train = Compose(
@@ -230,10 +237,9 @@ def create_datasets(root=None,
                                     target_transform=target_transform_train,
                                     chunk_size=chunk_size_train,
                                     is_train_Enhanced=is_train_Enhanced,
-                                    dt=dt)
-
-        # train_dl = torch.utils.data.DataLoader(
-        #     train_d, batch_size=batch_size, shuffle=True, **dl_kwargs)
+                                    dt=dt,
+                                    size=size,
+                                    ds=ds)
         return train_d
     else:
         test_d = DVSGestureDataset(root,
@@ -242,12 +248,39 @@ def create_datasets(root=None,
                                    train=train,
                                    chunk_size=chunk_size_test,
                                    clip=clip,
-                                   dt=dt)
-
-        # test_dl = torch.utils.data.DataLoader(
-        #     test_d, batch_size=batch_size, **dl_kwargs)
-
+                                   dt=dt,
+                                   size=size,
+                                   ds=ds)
         return test_d
+
+
+# TODO：等待使用
+
+
+class data_prefetcher():
+    def __init__(self, loader):
+        self.loader = iter(loader)
+        self.stream = torch.cuda.Stream()
+        self.preload()
+
+    def preload(self):
+        try:
+            self.next_data = next(self.loader)
+        except StopIteration:
+            self.next_input = None
+            return
+        # with torch.cuda.stream(self.stream):
+        #     self.next_data = self.next_data.cuda(non_blocking=True)
+
+    def next(self):
+        torch.cuda.current_stream().wait_stream(self.stream)
+        data = self.next_data
+        self.preload()
+        return data
+
+
+def my_collate_fn(batch):
+    return batch
 
 
 if __name__ == '__main__':
@@ -257,34 +290,46 @@ if __name__ == '__main__':
                 os.path.abspath(__file__)))) + os.sep + 'dataset' + os.sep + 'DVS_Gesture'
 
     T = 60
-    batch_size = 2
-    train_dataset = create_datasets(path,
-                                    train=True,
-                                    is_train_Enhanced=False,
-                                    ds=4,
-                                    dt=1000,
-                                    chunk_size_train=T,
-                                    )
-    train_loader = torch.utils.data.DataLoader(train_dataset,
-                                               batch_size=batch_size,
-                                               shuffle=True,
-                                               drop_last=False)
+    batch_size = 36
+    # train_dataset = create_datasets(path,
+    #                                 train=True,
+    #                                 is_train_Enhanced=False,
+    #                                 ds=32,
+    #                                 dt=1000*20,
+    #                                 chunk_size_train=T,
+    #                                 )
+    # train_loader = torch.utils.data.DataLoader(train_dataset,
+    #                                            batch_size=batch_size,
+    #                                            shuffle=True,
+    #                                            drop_last=False)
 
     test_dataset = create_datasets(path,
                                    train=False,
-                                   ds=4,
-                                   dt=1000,
-                                   chunk_size_train=T,
-                                   clip=2
+                                   ds=32,
+                                   dt=1000 * 20,
+                                   chunk_size_test=T,
+                                   clip=10
                                    )
     test_loader = torch.utils.data.DataLoader(test_dataset,
                                               batch_size=batch_size,
                                               shuffle=False,
-                                              drop_last=False)
+                                              drop_last=False,
+                                              num_workers=2)
+    print(2)
+    start = time.time()
+
+    i = 1
+    for idx, (input, labels) in enumerate(test_loader):
+        print(i)
+        i += 1
 
 
-    ho = iter(train_loader)
-    input, labels = next(ho)
 
-
+    # prefetcher = data_prefetcher(test_loader)
+    # i =1
+    # for i in range(len(test_loader)):
+    #     data = prefetcher.next()
+    #     print(i)
+    #     i+=1
+    print(time.time() - start)
     print(1)

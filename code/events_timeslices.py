@@ -139,4 +139,19 @@ def chunk_evs_pol_dvs(times, addrs, deltat=1000, chunk_size=500, size=[2, 304, 2
         idx_start = idx_end
     return chunks
 
+def my_chunk_evs_pol_dvs(data, dt=1000, T=500, size=[2, 304, 240], ds=[4,4]):
+    t_start = data[0][0]
+    ts = range(t_start, t_start + T * dt, dt)
+    chunks = np.zeros([len(ts)] + size, dtype='int8')
+    idx_start = 0
+    idx_end = 0
+    for i, t in enumerate(ts):
+        idx_end += find_first(data[idx_end:,0], t+dt)
+        if idx_end > idx_start:
+            ee = data[idx_start:idx_end,1:]
+            pol, x, y = ee[:, 0], (ee[:, 1] // ds[0]).astype(np.int), (ee[:, 2] // ds[1]).astype(np.int)
+            np.add.at(chunks, (i-1, pol, x, y), 1)
+        idx_start = idx_end
+    return chunks
+
 

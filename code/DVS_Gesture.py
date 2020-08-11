@@ -99,7 +99,6 @@ def create_hdf5(path, save_path):
         os.makedirs(save_path_train)
 
     fns_train = gather_aedat(path, 1, 24)
-    assert len(fns_train) == 98
 
     for i in range(len(fns_train)):
         print('开始处理第' + str(i + 1) + '个train数据')
@@ -121,9 +120,9 @@ def create_hdf5(path, save_path):
                 ad_dset = f.create_dataset('addrs', data=addrs, dtype=np.uint8)
                 lbl_dset = f.create_dataset('labels', data=lbls[lbls_idx] - 1, dtype=np.uint8)
 
-
-
     print('train 数据处理完成')
+
+
 
     # Test数据处理
     print('processing test data...')
@@ -133,7 +132,6 @@ def create_hdf5(path, save_path):
         os.makedirs(save_path_test)
 
     fns_test = gather_aedat(path, 24, 30)
-    assert len(fns_test) == 24
 
     for i in range(len(fns_test)):
         print('开始处理第' + str(i + 1) + '个test数据')
@@ -154,8 +152,6 @@ def create_hdf5(path, save_path):
                 ad_dset = f.create_dataset('addrs', data=addrs, dtype=np.uint8)
                 lbl_dset = f.create_dataset('labels', data=lbls[lbls_idx] - 1, dtype=np.uint8)
 
-        assert  lbls_idx == 11
-
     print('test 数据处理完成')
 
 
@@ -170,7 +166,7 @@ def datasets_process(path=None):
     else:
         print('开始处理DVS-Gestures数据')
         print('开始解压数据')
-        # untar(os.path.join(path,'DvsGesture.tar.gz'),path)
+        untar(os.path.join(path,'DvsGesture.tar.gz'),path)
         print('解压完成')
 
         create_hdf5(os.path.join(path, 'DvsGesture'), path)

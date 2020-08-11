@@ -79,7 +79,7 @@ class DVSGestureDataset(Dataset):
                                         T=self.chunk_size,
                                         size=self.size,
                                         ds=self.ds)
-            data = np.int8(data > 0)
+            # data = np.int8(data > 0)
 
             if self.transform is not None:
                 data = self.transform(data)
@@ -108,7 +108,7 @@ class DVSGestureDataset(Dataset):
                                                 T=self.chunk_size,
                                                 size=self.size,
                                                 ds=self.ds)
-                    temp = np.int8(temp > 0)
+                    # temp = np.int8(temp > 0)
                     data_temp.append(self.transform(temp))
 
                 if self.target_transform is not None:
@@ -291,21 +291,23 @@ if __name__ == '__main__':
 
     T = 60
     batch_size = 36
-    # train_dataset = create_datasets(path,
-    #                                 train=True,
-    #                                 is_train_Enhanced=False,
-    #                                 ds=32,
-    #                                 dt=1000*20,
-    #                                 chunk_size_train=T,
-    #                                 )
-    # train_loader = torch.utils.data.DataLoader(train_dataset,
-    #                                            batch_size=batch_size,
-    #                                            shuffle=True,
-    #                                            drop_last=False)
+    train_dataset = create_datasets(path,
+                                    train=True,
+                                    is_train_Enhanced=False,
+                                    ds=4,
+                                    dt=1000*20,
+                                    chunk_size_train=T,
+                                    )
+    train_loader = torch.utils.data.DataLoader(train_dataset,
+                                               batch_size=batch_size,
+                                               shuffle=True,
+                                               drop_last=False,
+                                               num_workers=0,
+                                               pin_memory=True)
 
     test_dataset = create_datasets(path,
                                    train=False,
-                                   ds=32,
+                                   ds=4,
                                    dt=1000 * 20,
                                    chunk_size_test=T,
                                    clip=10
@@ -314,8 +316,25 @@ if __name__ == '__main__':
                                               batch_size=batch_size,
                                               shuffle=False,
                                               drop_last=False,
-                                              num_workers=2)
+                                              num_workers=0,
+                                              pin_memory=True)
     print(2)
+
+    start = time.time()
+
+    i = 1
+    for idx, (input, labels) in enumerate(train_loader):
+        print(i)
+        i += 1
+
+    # prefetcher = data_prefetcher(test_loader)
+    # i =1
+    # for i in range(len(test_loader)):
+    #     data = prefetcher.next()
+    #     print(i)
+    #     i+=1
+    print('train:', time.time() - start)
+
     start = time.time()
 
     i = 1
@@ -331,5 +350,5 @@ if __name__ == '__main__':
     #     data = prefetcher.next()
     #     print(i)
     #     i+=1
-    print(time.time() - start)
+    print('test:',time.time() - start)
     print(1)

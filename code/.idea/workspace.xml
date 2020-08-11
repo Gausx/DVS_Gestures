@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69a2f927-3e07-4182-b3da-27b03c591de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LIFLSTM/LIF_RNN_CNN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SNN/SNNs_CNN.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SNN/SNNs_MLP.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SNN/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/module/RNNCell.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LIFLSTM/GRU.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testGRU.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DVS_Gesture.py" beforeDir="false" afterPath="$PROJECT_DIR$/DVS_Gesture.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DVS_Gesture_dataloders.py" beforeDir="false" afterPath="$PROJECT_DIR$/DVS_Gesture_dataloders.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/events_timeslices.py" beforeDir="false" afterPath="$PROJECT_DIR$/events_timeslices.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LIFLSTM/LIF_GRU_CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/LIFLSTM/LIF_GRU_CNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_CNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LIFLSTM/LIF_RNN_CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/LIFLSTM/LIF_RNN_CNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/LIFRNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/module/LIFRNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/convGru.py" beforeDir="false" afterPath="$PROJECT_DIR$/module/convGru.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/convRnns.py" beforeDir="false" afterPath="$PROJECT_DIR$/module/convRnns.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +41,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/SNN" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/module" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -51,13 +50,17 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\共享云端硬盘\Colab\github\DVS_Gestures\code\" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\共享云端硬盘\Colab\github\DVS_Gestures\code\SNN" />
+      <recent name="E:\共享云端硬盘\Colab\github\DVS_Gestures\code\module" />
       <recent name="E:\共享云端硬盘\Colab\github\DVS_Gestures\code\LIFLSTM" />
+      <recent name="E:\共享云端硬盘\Colab\github\DVS_Gestures\code\SNN" />
       <recent name="E:\共享云端硬盘\Colab\github\DVS_Gestures\code" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.DVS_Gesture_dataloders">
+  <component name="RunManager" selected="Python.LIF_LSTM_MLP">
     <configuration name="DVS_Gesture" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="code" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -146,8 +149,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="LIF_LSTM_MLP" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/LIFLSTM" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.LIF_LSTM_MLP" />
         <item itemvalue="Python.DVS_Gesture_dataloders" />
         <item itemvalue="Python.LIF_LSTM (1)" />
         <item itemvalue="Python.LIF_LSTM" />
@@ -178,6 +204,8 @@
       <workItem from="1597027808210" duration="7680000" />
       <workItem from="1597037989440" duration="11908000" />
       <workItem from="1597106742772" duration="1263000" />
+      <workItem from="1597108770204" duration="8973000" />
+      <workItem from="1597130283557" duration="11165000" />
     </task>
     <servers />
   </component>
@@ -185,68 +213,68 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-854" y="161" width="490" height="699" key="#xdebugger.evaluate" timestamp="1597050923934">
+    <state x="610" y="212" width="490" height="699" key="#xdebugger.evaluate" timestamp="1597153176715">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="610" y="212" key="#xdebugger.evaluate/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153176715" />
+    <state x="-854" y="161" width="490" height="699" key="#xdebugger.evaluate/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597050923934" />
+    <state width="1374" height="386" key="DebuggerActiveHint" timestamp="1597153174809">
       <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state x="-554" y="103" key="#xdebugger.evaluate/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1596888078863" />
-    <state x="-854" y="161" width="490" height="699" key="#xdebugger.evaluate/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597050923934" />
-    <state width="1648" height="418" key="DebuggerActiveHint" timestamp="1597028930209">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1374" height="386" key="DebuggerActiveHint/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1596887370885" />
+    <state width="1374" height="386" key="DebuggerActiveHint/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153174809" />
     <state width="1648" height="418" key="DebuggerActiveHint/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597028930209" />
-    <state width="953" height="156" key="GridCell.Tab.0.bottom" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.0.bottom" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717975" />
+    <state width="1557" height="106" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597107271710" />
     <state width="953" height="156" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="953" height="156" key="GridCell.Tab.0.center" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.0.center" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.0.center/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717975" />
+    <state width="1557" height="106" key="GridCell.Tab.0.center/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.0.center/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597107271710" />
     <state width="953" height="156" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="953" height="156" key="GridCell.Tab.0.left" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.0.left" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.0.left/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717974" />
+    <state width="1557" height="106" key="GridCell.Tab.0.left/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.0.left/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597107271709" />
     <state width="953" height="156" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="953" height="156" key="GridCell.Tab.0.right" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.0.right" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.0.right/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717975" />
+    <state width="1557" height="106" key="GridCell.Tab.0.right/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.0.right/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597107271710" />
     <state width="953" height="156" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="953" height="156" key="GridCell.Tab.1.bottom" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.1.bottom" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717975" />
+    <state width="1557" height="106" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597051001693" />
     <state width="953" height="156" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="953" height="156" key="GridCell.Tab.1.center" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.1.center" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.1.center/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717975" />
+    <state width="1557" height="106" key="GridCell.Tab.1.center/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.1.center/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597051001693" />
     <state width="953" height="156" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="953" height="156" key="GridCell.Tab.1.left" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.1.left" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.1.left/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717975" />
+    <state width="1557" height="106" key="GridCell.Tab.1.left/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.1.left/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597051001693" />
     <state width="953" height="156" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="953" height="156" key="GridCell.Tab.1.right" timestamp="1597108031081">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1557" height="106" key="GridCell.Tab.1.right" timestamp="1597153306150">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="219" key="GridCell.Tab.1.right/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597041717975" />
+    <state width="1557" height="106" key="GridCell.Tab.1.right/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153306150" />
     <state width="1877" height="277" key="GridCell.Tab.1.right/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597051001693" />
     <state width="953" height="156" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1597108031081" />
-    <state width="1397" height="858" key="XDebugger.FullValuePopup" timestamp="1597034176957">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="746" height="858" key="XDebugger.FullValuePopup" timestamp="1597153050253">
+      <screen x="-1600" y="0" width="1600" height="860" />
     </state>
-    <state width="807" height="437" key="XDebugger.FullValuePopup/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1596888063814" />
+    <state width="746" height="858" key="XDebugger.FullValuePopup/0.0.1920.1040/-1600.0.1600.860@-1600.0.1600.860" timestamp="1597153050253" />
     <state width="1397" height="858" key="XDebugger.FullValuePopup/0.0.1920.1040/-1600.0.1600.860@0.0.1920.1040" timestamp="1597034176957" />
   </component>
   <component name="XDebuggerManager">
@@ -264,6 +292,7 @@
     <SUITE FILE_PATH="coverage/code$LIF_LSTM.coverage" NAME="LIF_LSTM Coverage Results" MODIFIED="1596976423744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/code$DVS_Gesture_dataloders.coverage" NAME="DVS_Gesture_dataloders Coverage Results" MODIFIED="1597107269128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/code$LIF_LSTM__1_.coverage" NAME="LIF_LSTM (1) Coverage Results" MODIFIED="1597028659464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LIFLSTM" />
+    <SUITE FILE_PATH="coverage/code$LIF_LSTM_MLP.coverage" NAME="LIF_LSTM_MLP Coverage Results" MODIFIED="1597152901456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LIFLSTM" />
     <SUITE FILE_PATH="coverage/code$DVS_Gesture.coverage" NAME="DVS_Gesture Coverage Results" MODIFIED="1596863646548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

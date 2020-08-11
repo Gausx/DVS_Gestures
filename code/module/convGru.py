@@ -5,7 +5,6 @@
 import torch.nn as nn
 from torch.autograd import Variable
 import torch
-import math
 
 
 class ConvGRUCell(nn.Module):
@@ -49,7 +48,6 @@ class ConvGRUCell(nn.Module):
                                padding=self.padding,
                                bias=self.bias)
 
-
     def forward(self, input_tensor, cur_state):
 
         # concatenate along channel axis
@@ -59,6 +57,8 @@ class ConvGRUCell(nn.Module):
         z, r = torch.split(combined_conv,
                            self.hidden_dim,
                            dim=1)
+        z = torch.sigmoid(z)
+        r = torch.sigmoid(r)
 
         combined2 = torch.cat([input_tensor, r * cur_state[0]], dim=1)
         h_ = torch.tanh(self.conv2(combined2))
@@ -74,8 +74,6 @@ class ConvGRUCell(nn.Module):
                                      self.hidden_dim,
                                      self.height,
                                      self.width)).cuda())
-
-
 
 
 class ConvGRU(nn.Module):

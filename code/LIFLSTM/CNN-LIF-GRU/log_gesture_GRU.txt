@@ -1,0 +1,3 @@
+cuda
+range(0, 4)
+GRU(Rate-Coding-inspired)(CNN)-DVS-Gestures:dt= 25 ms

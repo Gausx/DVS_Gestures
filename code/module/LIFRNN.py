@@ -210,6 +210,7 @@ class LIFLSTMCell(nn.Module):
         x = self.spikeActFun(u)
         self.h = self.decay * u * (1 - self.spikeActFun(u))    # 重要
 
+
         # step 3: Norms    后续看能否使用
         if self.useBatchNorm:
             self.c = self.BNLayerc(self.c)
@@ -302,7 +303,6 @@ class LIFGRUCell(nn.Module):
         # Step 2: renew
         x = self.spikeActFun(u)
         self.h = self.decay * u * (1 - self.spikeActFun(u))
-
         # step 3: Norms
         if self.useBatchNorm:
             self.h = self.BNLayerc(self.h)
@@ -525,11 +525,13 @@ class LIFConvLSTMCell(nn.Module):
                                       cur_state=[self.h, self.c])
 
         # Step 2: renew
-        x = self.spikeActFun(u)
+        # x = self.spikeActFun(u)
         self.h = self.decay * u * (1 - self.spikeActFun(u))    # 重要
         # # TODO: 测试C进行衰减
         # self.c = self.decay * self.c * (1- self.spikeActFun(self.c))
-        self.c = self.decay * self.c
+        # self.c = self.decay * self.c
+        x = u
+        # self.h = u
 
         # step 3: Norms    后续看能否使用
         if self.useBatchNorm:

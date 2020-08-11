@@ -25,7 +25,8 @@ def main():
     device_ids = range(torch.cuda.device_count())
     print(device_ids)
 
-    m = [1, 5, 10, 15, 20, 25]
+    # m = [1, 5, 10, 15, 20, 25]
+    m = [25]
 
     for dt in m:
 
@@ -46,7 +47,7 @@ def main():
         num_epochs = 100  # 100
         batch_size = 36
 
-        batch_size_test = 1
+        batch_size_test = 36
         clip = 1
         is_train_Enhanced = False
 
@@ -98,11 +99,13 @@ def main():
         train_loader = torch.utils.data.DataLoader(train_dataset,
                                                    batch_size=batch_size,
                                                    shuffle=True,
-                                                   drop_last=False)
+                                                   drop_last=False,
+                                                   num_workers = 4)
         test_loader = torch.utils.data.DataLoader(test_dataset,
                                                   batch_size=batch_size_test,
                                                   shuffle=False,
-                                                  drop_last=False)
+                                                  drop_last=False,
+                                                  num_workers = 4)
 
         # Net
         # define approximate firing function
@@ -128,7 +131,7 @@ def main():
         # pooling kernel_size
         cfg_pool = [4, 2, 2]
         # fc layer
-        cfg_fc = [cfg_cnn[0][1] * 8 * 8, 256, target_size]
+        cfg_fc = [cfg_cnn[2][1] * 8 * 8, 256, target_size]
 
         class Net(nn.Module):
 
@@ -146,58 +149,58 @@ def main():
                     dropOut=0.5
                 )
 
-                # in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[1]
-                # self.lifconvlstm2 = LIFConvLSTM(
-                #     input_range=(im_width, im_height),
-                #     inputSize=in_planes,
-                #     hiddenSize=out_planes,
-                #     kernel_size=(kernel_size, kernel_size),
-                #     decay=decay,
-                #     spikeActFun=ActFun.apply,
-                #     dropOut=0.5
-                # )
+                in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[1]
+                self.lifconvlstm2 = LIFConvLSTM(
+                    input_range=(im_width, im_height),
+                    inputSize=in_planes,
+                    hiddenSize=out_planes,
+                    kernel_size=(kernel_size, kernel_size),
+                    decay=decay,
+                    spikeActFun=ActFun.apply,
+                    dropOut=0.5
+                )
 
                 kernel_size = cfg_pool[1]
                 self.avgPool1 = LIFPooling(kernel_size=kernel_size)
-                #
-                # in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[2]
-                # self.lifconvlstm3 = LIFConvLSTM(
-                #     input_range=(im_width // 2, im_height // 2),
-                #     inputSize=in_planes,
-                #     hiddenSize=out_planes,
-                #     kernel_size=(kernel_size, kernel_size),
-                #     decay=decay,
-                #     spikeActFun=ActFun.apply,
-                #     dropOut=0.5
-                # )
+
+                in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[2]
+                self.lifconvlstm3 = LIFConvLSTM(
+                    input_range=(im_width // 2, im_height // 2),
+                    inputSize=in_planes,
+                    hiddenSize=out_planes,
+                    kernel_size=(kernel_size, kernel_size),
+                    decay=decay,
+                    spikeActFun=ActFun.apply,
+                    dropOut=0.5
+                )
 
                 kernel_size = cfg_pool[2]
                 self.avgPool2 = LIFPooling(kernel_size=kernel_size)
 
-                self.liflstm = LIFLSTM(cfg_fc[0],
-                                       cfg_fc[1],
-                                       spikeActFun=ActFun.apply,
-                                       decay=decay,
-                                       onlyLast=False,
-                                       dropOut=0.5
-                                       )
+                # self.liflstm = LIFLSTM(cfg_fc[0],
+                #                        cfg_fc[1],
+                #                        spikeActFun=ActFun.apply,
+                #                        decay=decay,
+                #                        onlyLast=False,
+                #                        dropOut=0.5
+                #                        )
 
-                self.fc = nn.Linear(cfg_fc[1], cfg_fc[2])
+                self.fc = nn.Linear(cfg_fc[0], cfg_fc[2])
 
             def forward(self, input):
 
                 b, _, _, _, t = input.size()
 
                 outputs = self.lifconvlstm1(input)
-                # outputs = self.lifconvlstm2(outputs)
+                outputs = self.lifconvlstm2(outputs)
                 outputs = self.avgPool1(outputs)
 
-                # outputs = self.lifconvlstm3(outputs)
+                outputs = self.lifconvlstm3(outputs)
                 outputs = self.avgPool2(outputs)
 
                 outputs = outputs.reshape(b, -1, t)
 
-                outputs = self.liflstm(outputs)
+                # outputs = self.liflstm(outputs)
                 outputs = torch.sum(outputs, dim=2)
                 outputs = self.fc(outputs)
 

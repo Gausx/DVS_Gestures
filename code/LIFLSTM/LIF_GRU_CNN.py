@@ -45,7 +45,7 @@ def main():
         num_epochs = 100  # 100
         batch_size = 36
 
-        batch_size_test = 1
+        batch_size_test = 36
         clip = 1
         is_train_Enhanced = False
 
@@ -96,11 +96,13 @@ def main():
         train_loader = torch.utils.data.DataLoader(train_dataset,
                                                    batch_size=batch_size,
                                                    shuffle=True,
-                                                   drop_last=False)
+                                                   drop_last=False,
+                                                   num_workers = 4)
         test_loader = torch.utils.data.DataLoader(test_dataset,
                                                   batch_size=batch_size_test,
                                                   shuffle=False,
-                                                  drop_last=False)
+                                                  drop_last=False,
+                                                  num_workers = 4)
 
         # Net
         # define approximate firing function
@@ -126,7 +128,7 @@ def main():
         # pooling kernel_size
         cfg_pool = [4, 2, 2]
         # fc layer
-        cfg_fc = [cfg_cnn[0][1] * 8 * 8, 256, target_size]
+        cfg_fc = [cfg_cnn[2][1] * 8 * 8, 256, target_size]
 
         class Net(nn.Module):
 
@@ -143,32 +145,32 @@ def main():
                     spikeActFun=ActFun.apply,
                     dropOut=0.5)
 
-                # in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[1]
-                # self.lifconvgru2 = LIFConvGRU(
-                #     input_range=(im_width, im_height),
-                #     inputSize=in_planes,
-                #     hiddenSize=out_planes,
-                #     kernel_size=(kernel_size, kernel_size),
-                #     decay=decay,
-                #     spikeActFun=ActFun.apply,
-                #     dropOut=0.5)
-                #
+                in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[1]
+                self.lifconvgru2 = LIFConvGRU(
+                    input_range=(im_width, im_height),
+                    inputSize=in_planes,
+                    hiddenSize=out_planes,
+                    kernel_size=(kernel_size, kernel_size),
+                    decay=decay,
+                    spikeActFun=ActFun.apply,
+                    dropOut=0.5)
+
                 kernel_size = cfg_pool[1]
                 self.avgPool1 = LIFPooling(kernel_size=kernel_size)
-                #
-                # in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[2]
-                # self.lifconvgru3 = LIFConvGRU(
-                #     input_range=(im_width // 2, im_height // 2),
-                #     inputSize=in_planes,
-                #     hiddenSize=out_planes,
-                #     kernel_size=(kernel_size, kernel_size),
-                #     decay=decay,
-                #     spikeActFun=ActFun.apply,
-                #     dropOut=0.5)
-                #
+
+                in_planes, out_planes, stride, padding, kernel_size = cfg_cnn[2]
+                self.lifconvgru3 = LIFConvGRU(
+                    input_range=(im_width // 2, im_height // 2),
+                    inputSize=in_planes,
+                    hiddenSize=out_planes,
+                    kernel_size=(kernel_size, kernel_size),
+                    decay=decay,
+                    spikeActFun=ActFun.apply,
+                    dropOut=0.5)
+
                 kernel_size = cfg_pool[2]
                 self.avgPool2 = LIFPooling(kernel_size=kernel_size)
-
+                #
                 # self.lifgru = LIFGRU(cfg_fc[0],
                 #                      cfg_fc[1],
                 #                      spikeActFun=ActFun.apply,
@@ -182,10 +184,10 @@ def main():
                 b, _, _, _, t = input.size()
 
                 outputs = self.lifconvgru1(input)
-                # outputs = self.lifconvgru2(outputs)
+                outputs = self.lifconvgru2(outputs)
                 outputs = self.avgPool1(outputs)
                 #
-                # outputs = self.lifconvgru3(outputs)
+                outputs = self.lifconvgru3(outputs)
                 outputs = self.avgPool2(outputs)
 
                 outputs = outputs.reshape(b, -1, t)
@@ -286,7 +288,7 @@ def main():
             with torch.no_grad():
 
                 for batch_idx, (input_s, labels_s) in enumerate(test_loader):
-
+                    input_s = input_s.to(device)
 
                     for i in range(batch_size_test):
                         input = input_s[i]

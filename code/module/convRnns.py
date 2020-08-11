@@ -49,6 +49,7 @@ class ConvRNNCell(nn.Module):
         combined = torch.cat([input_tensor, cur_state[0]], dim=1)
 
         h_next = torch.tanh(self.conv(combined))
+        # h_next = (self.conv(combined))
 
 
         return h_next

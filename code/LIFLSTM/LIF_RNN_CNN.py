@@ -98,11 +98,13 @@ def main():
         train_loader = torch.utils.data.DataLoader(train_dataset,
                                                    batch_size=batch_size,
                                                    shuffle=True,
-                                                   drop_last=False)
+                                                   drop_last=False,
+                                                   num_workers = 4)
         test_loader = torch.utils.data.DataLoader(test_dataset,
                                                   batch_size=batch_size_test,
                                                   shuffle=False,
-                                                  drop_last=False)
+                                                  drop_last=False,
+                                                  num_workers = 4)
 
         # Net
         # define approximate firing function

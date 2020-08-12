@@ -12,7 +12,7 @@ import torch.nn as nn
 from torch import optim
 from module.LIFRNN_module import LIFLSTM
 import numpy as np
-from DVS_Gesture_dataloders import create_datasets,data_prefetcher
+from DVS_Gesture_dataloders import create_datasets, data_prefetcher
 from utils import util
 import random
 from apex import amp
@@ -44,7 +44,7 @@ def main():
 
         # Hyper Parameters
         num_epochs = 100  # 100
-        batch_size = 36
+        batch_size = 72
 
         batch_size_test = 36
         clip = 10
@@ -73,7 +73,7 @@ def main():
         # 运行记录保存路径
         recordPath = os.path.dirname(
             os.path.abspath(__file__)) + os.sep + 'record'
-        recordNames = 'gesture_LIF-LSTM_New2(MLP)' + str(dt) + 'ms.csv'
+        recordNames = 'gesture_LIF-LSTM_New_1(MLP)' + str(dt) + 'ms.csv'
         # dataset路径
         savePath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(
             os.path.abspath(__file__))))) + os.sep + 'dataset' + os.sep + 'DVS_Gesture' + os.sep  # 保存hdf5路径
@@ -98,14 +98,14 @@ def main():
         train_loader = torch.utils.data.DataLoader(train_dataset,
                                                    batch_size=batch_size,
                                                    shuffle=True,
-                                                   drop_last=False)
+                                                   drop_last=False,
+                                                   num_workers = 16)
         test_loader = torch.utils.data.DataLoader(test_dataset,
                                                   batch_size=batch_size_test,
                                                   shuffle=False,
-                                                  drop_last=False)
+                                                  drop_last=False,
+                                                  num_workers = 16)
 
-        # train_prefetcher = data_prefetcher(train_loader)
-        # test_prefetcher = data_prefetcher(test_loader)
 
         # Net
         # fc layer
@@ -249,29 +249,31 @@ def main():
             with torch.no_grad():
 
                 for batch_idx, (input_s, labels_s) in enumerate(test_loader):
+                    input = input_s.reshape(
+                        batch_size_test * clip,T,in_channels, im_width, im_height)
+                    input = input.float().permute(
+                                 [0, 2, 3, 4, 1]).to(device)
+                    labels = labels_s.reshape(batch_size_test * clip,T,target_size)
+                    labels = labels[:, 1, :].float()
 
+                    outputs = model(input)
 
+                    loss = criterion(outputs.cpu(), labels)
+
+                    _, predicted = torch.max(outputs.data, 1)
+                    _, labelTest = torch.max(labels.data, 1)
                     for i in range(batch_size_test):
-                        input = input_s[i]
-                        input = input.float().permute(
-                            [0, 2, 3, 4, 1]).to(device)
-
-                        labels = labels_s[i]
-                        labels = labels[:, 1, :].float()
-
-                        outputs = model(input)
-
-                        loss = criterion(outputs.cpu(), labels)
-
-                        _, predicted = torch.max(outputs.data, 1)
-                        _, labelTest = torch.max(labels.data, 1)
-                        test_clip_correct = (predicted.cpu()
-                                              == labelTest).sum()
-
+                        predicted_clips = predicted[i*clip:(i+1)*clip]
+                        labelTest_clips = labelTest[i*clip:(i+1)*clip]
+                        test_clip_correct = (predicted_clips.cpu()== labelTest_clips).sum()
                         if test_clip_correct.item() / clip > 0.5:
-                            test_correct += 1
+                             test_correct += 1
+
                         test_total += 1
-                        test_loss += loss/clip
+
+
+                    test_loss += loss / clip
+
 
                     print('test: Epoch [%d/%d], Step [%d/%d], Loss: %.5f' %
                           (epoch + 1,

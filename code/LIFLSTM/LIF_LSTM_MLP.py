@@ -48,7 +48,7 @@ def main():
 
         batch_size_test = 36
         clip = 10
-        is_train_Enhanced = False
+        is_train_Enhanced = True
 
         lr = 1e-4
         betas = [0.9, 0.999]
@@ -98,14 +98,14 @@ def main():
         train_loader = torch.utils.data.DataLoader(train_dataset,
                                                    batch_size=batch_size,
                                                    shuffle=True,
-                                                   drop_last=False)
+                                                   drop_last=False,
+                                                   num_workers = 16)
         test_loader = torch.utils.data.DataLoader(test_dataset,
                                                   batch_size=batch_size_test,
                                                   shuffle=False,
-                                                  drop_last=False)
+                                                  drop_last=False,
+                                                  num_workers = 16)
 
-        # train_prefetcher = data_prefetcher(train_loader)
-        # test_prefetcher = data_prefetcher(test_loader)
 
         # Net
         # fc layer
@@ -274,32 +274,6 @@ def main():
 
                     test_loss += loss / clip
 
-
-
-
-                    # # input_s = input_s.to(device)
-                    #
-                    # for i in range(batch_size_test):
-                    #     input = input_s[i]
-                    #     input = input.float().permute(
-                    #         [0, 2, 3, 4, 1]).to(device)
-                    #
-                    #     labels = labels_s[i]
-                    #     labels = labels[:, 1, :].float()
-                    #
-                    #     outputs = model(input)
-                    #
-                    #     loss = criterion(outputs.cpu(), labels)
-                    #
-                    #     _, predicted = torch.max(outputs.data, 1)
-                    #     _, labelTest = torch.max(labels.data, 1)
-                    #     test_clip_correct = (predicted.cpu()
-                    #                           == labelTest).sum()
-                    #
-                    #     if test_clip_correct.item() / clip > 0.5:
-                    #         test_correct += 1
-                    #     test_total += 1
-                    #     test_loss += loss/clip
 
                     print('test: Epoch [%d/%d], Step [%d/%d], Loss: %.5f' %
                           (epoch + 1,

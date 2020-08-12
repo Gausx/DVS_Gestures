@@ -24,7 +24,7 @@ def main():
     print(device_ids)
 
 
-    m = [25]
+    m = [25,20,15,10,5,1]
 
     for dt in m:
 
@@ -48,6 +48,7 @@ def main():
         batch_size_test = 36
         clip = 1
         is_train_Enhanced = False
+        num_workers = 16
 
         lr = 1e-4
         betas = [0.9, 0.999]
@@ -97,12 +98,12 @@ def main():
                                                    batch_size=batch_size,
                                                    shuffle=True,
                                                    drop_last=False,
-                                                   num_workers = 4)
+                                                   num_workers = num_workers)
         test_loader = torch.utils.data.DataLoader(test_dataset,
                                                   batch_size=batch_size_test,
                                                   shuffle=False,
                                                   drop_last=False,
-                                                  num_workers = 4)
+                                                  num_workers = num_workers)
 
         # Net
         # define approximate firing function
@@ -177,7 +178,7 @@ def main():
                 #                      decay=decay,
                 #                      onlyLast=False,
                 #                      dropOut=0.5)
-
+            
                 self.fc = nn.Linear(cfg_fc[0], cfg_fc[2])
 
             def forward(self, input):
@@ -195,6 +196,7 @@ def main():
                 # outputs = self.lifgru(outputs)
 
                 outputs = torch.sum(outputs, dim=2)
+     
 
                 outputs = self.fc(outputs)
 
@@ -287,31 +289,32 @@ def main():
             # test
             with torch.no_grad():
 
-                for batch_idx, (input_s, labels_s) in enumerate(test_loader):
-                    input_s = input_s.to(device)
+                 for batch_idx, (input_s, labels_s) in enumerate(test_loader):
+                    input = input_s.reshape(
+                        batch_size_test * clip,T,in_channels, im_width, im_height)
+                    input = input.float().permute(
+                                 [0, 2, 3, 4, 1]).to(device)
+                    labels = labels_s.reshape(batch_size_test * clip,T,target_size)
+                    labels = labels[:, 1, :].float()
 
+                    outputs = model(input)
+
+                    loss = criterion(outputs.cpu(), labels)
+
+                    _, predicted = torch.max(outputs.data, 1)
+                    _, labelTest = torch.max(labels.data, 1)
                     for i in range(batch_size_test):
-                        input = input_s[i]
-                        input = input.float().permute(
-                            [0, 2, 3, 4, 1]).to(device)
-
-                        labels = labels_s[i]
-                        labels = labels[:, 1, :].float()
-
-                        outputs = model(input)
-
-                        loss = criterion(outputs.cpu(), labels)
-
-
-                        _, predicted = torch.max(outputs.data, 1)
-                        _, labelTest = torch.max(labels.data, 1)
-                        test_clip_correct = (predicted.cpu()
-                                              == labelTest).sum()
-
+                        predicted_clips = predicted[i*clip:(i+1)*clip]
+                        labelTest_clips = labelTest[i*clip:(i+1)*clip]
+                        test_clip_correct = (predicted_clips.cpu()== labelTest_clips).sum()
                         if test_clip_correct.item() / clip > 0.5:
-                            test_correct += 1
+                             test_correct += 1
+
                         test_total += 1
-                        test_loss += loss/clip
+
+
+                    test_loss += loss / clip
+
 
                     print('test: Epoch [%d/%d], Step [%d/%d], Loss: %.5f' %
                           (epoch + 1,

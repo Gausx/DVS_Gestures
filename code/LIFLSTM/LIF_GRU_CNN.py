@@ -178,8 +178,10 @@ def main():
                 #                      decay=decay,
                 #                      onlyLast=False,
                 #                      dropOut=0.5)
+                self.fc1 = nn.Linear(cfg_fc[0], cfg_fc[1])
+    
             
-                self.fc = nn.Linear(cfg_fc[0], cfg_fc[2])
+                self.fc = nn.Linear(cfg_fc[1], cfg_fc[2])
 
             def forward(self, input):
                 b, _, _, _, t = input.size()
@@ -197,7 +199,7 @@ def main():
 
                 outputs = torch.sum(outputs, dim=2)
      
-
+                outputs = self.fc1(outputs)
                 outputs = self.fc(outputs)
 
                 outputs = outputs / t
@@ -289,7 +291,7 @@ def main():
             # test
             with torch.no_grad():
 
-                 for batch_idx, (input_s, labels_s) in enumerate(test_loader):
+                for batch_idx, (input_s, labels_s) in enumerate(test_loader):
                     input = input_s.reshape(
                         batch_size_test * clip,T,in_channels, im_width, im_height)
                     input = input.float().permute(
@@ -350,27 +352,27 @@ def main():
                     #     os.makedirs(modelPath)
                     # torch.save(state, modelPath + os.sep + modelNames)
 
-    print('LIF-GRU(CNN)-DVS-Gesture:dt=', dt, 'ms')
-    print('best acc:', best_acc, 'best_epoch:', best_epoch)
+        print('LIF-GRU(CNN)-DVS-Gesture:dt=', dt, 'ms')
+        print('best acc:', best_acc, 'best_epoch:', best_epoch)
 
-    epoch_list.append(best_epoch)
-    acc_test_list.append(best_acc)
+        epoch_list.append(best_epoch)
+        acc_test_list.append(best_acc)
 
-    lists = [loss_train_list,
-             acc_train_list,
-             acc_test_list]
-    test = pd.DataFrame(data=lists,
-                        index=['Loss',
-                               'Train_Accuracy',
-                               'Test_Accuracy'],
-                        columns=epoch_list)
-    test.index.name = 'Epochs'
+        lists = [loss_train_list,
+                    acc_train_list,
+                    acc_test_list]
+        test = pd.DataFrame(data=lists,
+                            index=['Loss',
+                                    'Train_Accuracy',
+                                    'Test_Accuracy'],
+                            columns=epoch_list)
+        test.index.name = 'Epochs'
 
-    if not os.path.exists(recordPath):
-        os.makedirs(recordPath)
-    test.to_csv(recordPath + os.sep + recordNames)
+        if not os.path.exists(recordPath):
+            os.makedirs(recordPath)
+        test.to_csv(recordPath + os.sep + recordNames)
 
-    torch.cuda.empty_cache()
+        torch.cuda.empty_cache()
 
 if __name__ == '__main__':
     main()

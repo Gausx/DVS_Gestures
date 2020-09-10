@@ -4,8 +4,6 @@
     <list default="true" id="69a2f927-3e07-4182-b3da-27b03c591de9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LIFLSTM/LIF_GRU_CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/LIFLSTM/LIF_GRU_CNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP2.py" beforeDir="false" afterPath="$PROJECT_DIR$/LIFLSTM/LIF_LSTM_MLP2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,6 +198,7 @@
       <workItem from="1597108770204" duration="8973000" />
       <workItem from="1597130283557" duration="11611000" />
       <workItem from="1597192579542" duration="4007000" />
+      <workItem from="1597552079452" duration="1047000" />
     </task>
     <servers />
   </component>

@@ -150,7 +150,7 @@ def my_chunk_evs_pol_dvs(data, dt=1000, T=500, size=[2, 304, 240], ds=[4,4]):
         if idx_end > idx_start:
             ee = data[idx_start:idx_end,1:]
             pol, x, y = ee[:, 0], (ee[:, 1] // ds[0]).astype(np.int), (ee[:, 2] // ds[1]).astype(np.int)
-            np.add.at(chunks, (i-1, pol, x, y), 1)
+            np.add.at(chunks, (i, pol, x, y), 1)
         idx_start = idx_end
     return chunks
 

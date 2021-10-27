@@ -9,6 +9,7 @@ from events_timeslices import *
 
 
 def untar(fname, dirs):
+    
     t = tarfile.open(fname)
     t.extractall(path=dirs)
 
